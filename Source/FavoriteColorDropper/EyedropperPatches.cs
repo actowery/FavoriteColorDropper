@@ -10,6 +10,14 @@ internal static class ColorDefAtPatch
     [HarmonyPrefix]
     internal static bool Prefix(IntVec3 cell, ref ColorDef? __result)
     {
+        if (EyedropperRejectionCache.Consume(cell))
+        {
+            // Do not invoke vanilla's lookup: it could sample the pawn's favorite
+            // color after the rejected Shift-click has already released Shift.
+            __result = null;
+            return false;
+        }
+
         var selection = PawnColorLookup.Resolve(cell);
         if (!selection.HasPawnTarget)
         {
@@ -31,14 +39,23 @@ internal static class CanDesignateCellPatch
         switch (selection.Status)
         {
             case ColorSelectionStatus.MissingFavoriteColor:
-                __result = "FCD_NoFavoriteColor".Translate();
+                EyedropperRejectionCache.Remember(c);
+                var noFavoriteColor = "FCD_NoFavoriteColor".Translate();
+                __result = noFavoriteColor;
+                ShowRejection(noFavoriteColor);
                 return false;
             case ColorSelectionStatus.MissingIdeoligionColor:
-                __result = "FCD_NoIdeoligionColor".Translate();
+                EyedropperRejectionCache.Remember(c);
+                var noIdeoligionColor = "FCD_NoIdeoligionColor".Translate();
+                __result = noIdeoligionColor;
+                ShowRejection(noIdeoligionColor);
                 return false;
             default:
+                EyedropperRejectionCache.Forget(c);
                 return true;
         }
     }
-}
 
+    private static void ShowRejection(TaggedString message) =>
+        Messages.Message(message, MessageTypeDefOf.RejectInput, false);
+}

@@ -66,6 +66,26 @@ public sealed class EyedropperPatchTests : TestEnvironment
 
         Assert.False(runOriginal);
         Assert.Equal("This pawn has no ideoligion color.", result.Reason);
+        Assert.Equal(new[] { "This pawn has no ideoligion color." }, Messages.ShownMessages);
+    }
+
+    [Fact]
+    public void RejectedShiftClickCannotFallBackToFavoriteColorAfterShiftIsReleased()
+    {
+        var favorite = new ColorDef("favorite");
+        AddHumanlikePawn(favorite, null);
+        Input.SetKey(KeyCode.LeftShift, true);
+        var report = new AcceptanceReport(string.Empty);
+
+        Assert.False(CanDesignateCellPatch.Prefix(Cell, ref report));
+
+        Input.SetKey(KeyCode.LeftShift, false);
+        ColorDef? result = favorite;
+        var runOriginal = ColorDefAtPatch.Prefix(Cell, ref result);
+
+        Assert.False(runOriginal);
+        Assert.Null(result);
+        Assert.Equal("This pawn has no ideoligion color.", report.Reason);
     }
 
     [Fact]
@@ -100,4 +120,3 @@ public sealed class EyedropperPatchTests : TestEnvironment
         Find.CurrentMap!.ThingsAt(Cell).Add(pawn);
     }
 }
-
