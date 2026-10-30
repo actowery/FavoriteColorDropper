@@ -12,6 +12,7 @@ public abstract class TestEnvironment : IDisposable
         Input.Reset();
         Log.Messages.Clear();
         Log.Errors.Clear();
+        Messages.ShownMessages.Clear();
     }
 
     public void Dispose()
