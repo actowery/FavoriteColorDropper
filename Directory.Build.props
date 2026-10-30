@@ -4,9 +4,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Deterministic>true</Deterministic>
-    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 </Project>
-

@@ -17,10 +17,12 @@ function Assert-Condition {
 }
 
 $aboutPath = Join-Path $RepositoryRoot 'About\About.xml'
+$previewPath = Join-Path $RepositoryRoot 'About\Preview.png'
 $loadFoldersPath = Join-Path $RepositoryRoot 'LoadFolders.xml'
 $languagePath = Join-Path $RepositoryRoot 'Languages\English\Keyed\FavoriteColorDropper.xml'
 
 Assert-Condition (Test-Path -LiteralPath $aboutPath) 'About/About.xml is missing.'
+Assert-Condition (Test-Path -LiteralPath $previewPath) 'About/Preview.png is missing.'
 Assert-Condition (Test-Path -LiteralPath $loadFoldersPath) 'LoadFolders.xml is missing.'
 Assert-Condition (Test-Path -LiteralPath $languagePath) 'English localization is missing.'
 
@@ -42,6 +44,9 @@ Assert-Condition ($loadFolders.loadFolders.'v1.6'.li[-1] -eq '1.6') 'RimWorld 1.
 Assert-Condition ($loadFolders.loadFolders.'v1.7'.li[-1] -eq '1.7') 'RimWorld 1.7 load folder is incorrect.'
 Assert-Condition ($null -ne $language.LanguageData.FCD_NoFavoriteColor) 'Favorite-color rejection translation is missing.'
 Assert-Condition ($null -ne $language.LanguageData.FCD_NoIdeoligionColor) 'Ideoligion-color rejection translation is missing.'
+
+$previewSizeBytes = (Get-Item -LiteralPath $previewPath).Length
+Assert-Condition ($previewSizeBytes -lt 1MB) 'About/Preview.png must be smaller than Steam Workshop''s 1 MB limit.'
 
 if ($RequireBinaries) {
     foreach ($version in @('1.6', '1.7')) {

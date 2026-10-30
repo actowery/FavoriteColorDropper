@@ -22,12 +22,12 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: github/codeql-action/init@793b778da9c9275a0f276522b27cb5fc14bba279 # v4
         with:
           languages: csharp
           build-mode: manual
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: 10.0.x
           cache: true
@@ -36,5 +36,4 @@ jobs:
         run: dotnet restore FavoriteColorDropper.slnx --locked-mode
       - name: Build
         run: dotnet build Source/FavoriteColorDropper/FavoriteColorDropper.csproj --configuration Release --no-restore
-      - uses: github/codeql-action/analyze@v4
-
+      - uses: github/codeql-action/analyze@793b778da9c9275a0f276522b27cb5fc14bba279 # v4

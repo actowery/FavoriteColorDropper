@@ -118,3 +118,21 @@ internal static class Log
     internal static void Error(string message) => Errors.Add(message);
 }
 
+internal sealed class MessageTypeDef
+{
+}
+
+internal static class MessageTypeDefOf
+{
+    internal static MessageTypeDef RejectInput { get; } = new();
+}
+
+internal static class Messages
+{
+    internal static List<string> ShownMessages { get; } = new();
+
+    internal static void Message(TaggedString message, MessageTypeDef messageType, bool historical)
+    {
+        ShownMessages.Add(message.Value);
+    }
+}

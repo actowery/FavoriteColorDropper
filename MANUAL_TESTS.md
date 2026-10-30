@@ -2,6 +2,10 @@
 
 Complete every row in both RimWorld 1.6 and the pinned RimWorld 1.7 unstable build before publishing.
 
+## Recorded smoke tests
+
+- 2026-10-29: RimWorld 1.7.4990 loaded successfully and the core pawn-color eyedropper behavior was verified by the maintainer.
+
 | Scenario | Expected result |
 |---|---|
 | Start with Harmony and Favorite Color Dropper | No red log entries; patch success appears once |
@@ -18,4 +22,3 @@ Complete every row in both RimWorld 1.6 and the pinned RimWorld 1.7 unstable bui
 | Character Editor changes a pawn | New favorite color is sampled immediately |
 | Existing save with mod enabled | Load, save, and reload succeeds |
 | Same save after removing mod | Load succeeds without missing-data warnings |
-
