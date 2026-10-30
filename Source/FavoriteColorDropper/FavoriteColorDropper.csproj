@@ -26,7 +26,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" ExcludeAssets="runtime" />
-    <PackageReference Include="Lib.Harmony" Version="2.4.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
 
