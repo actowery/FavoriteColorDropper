@@ -10,29 +10,15 @@
       },
       "Lib.Harmony": {
         "type": "Direct",
-        "requested": "[2.4.2, )",
-        "resolved": "2.4.2",
-        "contentHash": "D2X9ojVjqbqdqWVK3VQETrEb56yVoXxtEp6tP5UvW0PP+bA4uJiswqOxF8GhH02ECwyevUa9vwhwdLzyXfksbw=="
+        "requested": "[2.4.3, )",
+        "resolved": "2.4.3",
+        "contentHash": "dxBbWOlFdzJNGIlkf3Q5/QdTZFzt2uPYCAfGA12D5HW6uBX+tiT0rVUW0upYI6Nlj2rfkHcO6jyoiNcoEpxCTw=="
       },
       "Microsoft.NETFramework.ReferenceAssemblies.net48": {
         "type": "Direct",
         "requested": "[1.0.3, )",
         "resolved": "1.0.3",
         "contentHash": "zMk4D+9zyiEWByyQ7oPImPN/Jhpj166Ky0Nlla4eXlNL8hI/BtSJsgR8Inldd4NNpIAH3oh8yym0W2DrhXdSLQ=="
-      }
-    },
-    "net10.0": {
-      "Krafs.Rimworld.Ref": {
-        "type": "Direct",
-        "requested": "[1.7.4990-unstable, )",
-        "resolved": "1.7.4990-unstable",
-        "contentHash": "YSLchWcIyKOhXEGyN71KJ1sa7ik+mjAgWaZ/q+XEr7aYOebE1Epl15fU1YCXIXMw9M2POnRNx45/507xL41nBQ=="
-      },
-      "Lib.Harmony": {
-        "type": "Direct",
-        "requested": "[3.0.0-rc.3, )",
-        "resolved": "3.0.0-rc.3",
-        "contentHash": "bW1UU49jqW9w5NxdTs7G+h7Nyi9FGs4cX4lHN3rP7+q62zwLk+cO4ypD/cRboAeq5jtgACt7u37o2KAE+O0RNg=="
       }
     }
   }
