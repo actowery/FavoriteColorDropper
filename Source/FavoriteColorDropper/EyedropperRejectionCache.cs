@@ -15,7 +15,7 @@ internal static class EyedropperRejectionCache
 
     internal static void Forget(IntVec3 cell)
     {
-        if (rejectedCell == cell)
+        if (rejectedCell.HasValue && rejectedCell.Value.Equals(cell))
         {
             rejectedCell = null;
         }
@@ -23,7 +23,7 @@ internal static class EyedropperRejectionCache
 
     internal static bool Consume(IntVec3 cell)
     {
-        if (rejectedCell != cell)
+        if (!rejectedCell.HasValue || !rejectedCell.Value.Equals(cell))
         {
             return false;
         }

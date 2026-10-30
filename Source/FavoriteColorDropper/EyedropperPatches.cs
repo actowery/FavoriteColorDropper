@@ -40,13 +40,15 @@ internal static class CanDesignateCellPatch
         {
             case ColorSelectionStatus.MissingFavoriteColor:
                 EyedropperRejectionCache.Remember(c);
-                __result = "FCD_NoFavoriteColor".Translate();
-                ShowRejection(__result);
+                var noFavoriteColor = "FCD_NoFavoriteColor".Translate();
+                __result = noFavoriteColor;
+                ShowRejection(noFavoriteColor);
                 return false;
             case ColorSelectionStatus.MissingIdeoligionColor:
                 EyedropperRejectionCache.Remember(c);
-                __result = "FCD_NoIdeoligionColor".Translate();
-                ShowRejection(__result);
+                var noIdeoligionColor = "FCD_NoIdeoligionColor".Translate();
+                __result = noIdeoligionColor;
+                ShowRejection(noIdeoligionColor);
                 return false;
             default:
                 EyedropperRejectionCache.Forget(c);
