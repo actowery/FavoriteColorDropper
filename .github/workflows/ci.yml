@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Dual-version build and package validation
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+      - name: Restore
+        run: dotnet restore FavoriteColorDropper.slnx --locked-mode
+      - name: Build
+        run: dotnet build Source/FavoriteColorDropper/FavoriteColorDropper.csproj --configuration Release --no-restore
+      - name: Validate package
+        shell: pwsh
+        run: ./scripts/validate-package.ps1 -RequireBinaries
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compiled-mod
+          path: |
+            1.6/Assemblies/FavoriteColorDropper.dll
+            1.7/Assemblies/FavoriteColorDropper.dll
+          if-no-files-found: error
+
+  test:
+    name: Tests and coverage (${{ matrix.flag }})
+    runs-on: windows-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rimworld: "1.6"
+            flag: rw16
+          - rimworld: "1.7"
+            flag: rw17
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+      - name: Restore
+        run: dotnet restore Tests/FavoriteColorDropper.Tests/FavoriteColorDropper.Tests.csproj --locked-mode
+      - name: Test
+        shell: pwsh
+        run: |
+          $coveragePath = Join-Path '${{ github.workspace }}' 'TestResults\${{ matrix.flag }}\coverage.cobertura.xml'
+          dotnet test Tests/FavoriteColorDropper.Tests/FavoriteColorDropper.Tests.csproj `
+            --configuration Release `
+            --no-restore `
+            -p:RimWorldVersion=${{ matrix.rimworld }} `
+            -p:CollectCoverage=true `
+            -p:IncludeTestAssembly=true `
+            -p:CoverletOutputFormat=cobertura `
+            -p:CoverletOutput="$coveragePath" `
+            -p:Threshold=90 `
+            -p:ThresholdType=line `
+            -p:ThresholdStat=total
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          use_oidc: true
+          files: TestResults/${{ matrix.flag }}/coverage.cobertura.xml
+          flags: ${{ matrix.flag }}
+          fail_ci_if_error: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.flag }}
+          path: TestResults/${{ matrix.flag }}/coverage.cobertura.xml
+          if-no-files-found: error
+
+  package:
+    name: Release archive
+    needs: [build, test]
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: compiled-mod
+          path: .
+      - name: Create release archive
+        shell: pwsh
+        run: ./scripts/package.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FavoriteColorDropper-release
+          path: |
+            outputs/FavoriteColorDropper.zip
+            outputs/FavoriteColorDropper.zip.sha256
+          if-no-files-found: error

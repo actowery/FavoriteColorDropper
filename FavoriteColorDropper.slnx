@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Source/FavoriteColorDropper/FavoriteColorDropper.csproj" />
+  <Project Path="Tests/FavoriteColorDropper.Tests/FavoriteColorDropper.Tests.csproj" />
+</Solution>
+

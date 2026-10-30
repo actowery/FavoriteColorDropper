@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/TestResults/
+*.pdb
+*.user
+*.suo
+.vs/
+.idea/
+coverage/
+artifacts/
+work/
+outputs/
+
