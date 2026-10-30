@@ -10,6 +10,7 @@ public abstract class TestEnvironment : IDisposable
     {
         Find.CurrentMap = new Map();
         Input.Reset();
+        EyedropperRejectionCache.Clear();
         Log.Messages.Clear();
         Log.Errors.Clear();
         Messages.ShownMessages.Clear();

@@ -31,4 +31,6 @@ internal static class EyedropperRejectionCache
         rejectedCell = null;
         return true;
     }
+
+    internal static void Clear() => rejectedCell = null;
 }
