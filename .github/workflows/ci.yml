@@ -19,8 +19,8 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
           cache: true
@@ -32,7 +32,7 @@ jobs:
       - name: Validate package
         shell: pwsh
         run: ./scripts/validate-package.ps1 -RequireBinaries
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: compiled-mod
           path: |
@@ -56,8 +56,8 @@ jobs:
           - rimworld: "1.7"
             flag: rw17
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
           cache: true
@@ -80,13 +80,13 @@ jobs:
             -p:ThresholdType=line `
             -p:ThresholdStat=total
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           use_oidc: true
           files: TestResults/${{ matrix.flag }}/coverage.cobertura.xml
           flags: ${{ matrix.flag }}
           fail_ci_if_error: true
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: coverage-${{ matrix.flag }}
           path: TestResults/${{ matrix.flag }}/coverage.cobertura.xml
@@ -98,15 +98,15 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           name: compiled-mod
           path: .
       - name: Create release archive
         shell: pwsh
         run: ./scripts/package.ps1
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: FavoriteColorDropper-release
           path: |

@@ -14,6 +14,7 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
     <OutputPath>../../1.6/Assemblies/</OutputPath>
     <DefineConstants>$(DefineConstants);RIMWORLD_1_6</DefineConstants>
+    <AutomaticallyUseReferenceAssemblyPackages>false</AutomaticallyUseReferenceAssemblyPackages>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
@@ -32,4 +33,3 @@
     <PackageReference Include="Lib.Harmony" Version="3.0.0-rc.3" ExcludeAssets="runtime" />
   </ItemGroup>
 </Project>
-

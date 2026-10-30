@@ -22,12 +22,12 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: github/codeql-action/init@v4
         with:
           languages: csharp
           build-mode: manual
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
           cache: true
@@ -37,4 +37,3 @@ jobs:
       - name: Build
         run: dotnet build Source/FavoriteColorDropper/FavoriteColorDropper.csproj --configuration Release --no-restore
       - uses: github/codeql-action/analyze@v4
-
