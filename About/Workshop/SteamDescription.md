@@ -32,5 +32,14 @@ Use RimWorld's existing color eyedropper on a humanlike pawn to sample the color
 
 [url=https://github.com/actowery/FavoriteColorDropper/releases/tag/v1.0.2]Latest release and direct download[/url]
 
+[h2]More from konduct[/h2]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3832026803]Browse the full Konduct's RimWorld Mods collection[/url]
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3830341327]Cat Launcher[/url] — a handheld launcher that fires spinning cat shells.
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3831148368]Cat Mortar[/url] — artillery that loads one colony cat or cat corpse for a color-based payload.
+
+If you enjoy the mod, a rating helps other RimWorld players find it.
+
 [h2]Credits[/h2]
 Created by [b]konduct[/b].
