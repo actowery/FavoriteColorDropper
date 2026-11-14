@@ -3,7 +3,6 @@
   <name>Favorite Color Dropper</name>
   <author>konduct</author>
   <packageId>konduct.favoritecolordropper</packageId>
-  <modIconPath>About/ModIcon</modIconPath>
   <supportedVersions>
     <li>1.6</li>
     <li>1.7</li>
